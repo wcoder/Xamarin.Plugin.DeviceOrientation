@@ -112,7 +112,9 @@
     <Compile Include="..\Plugin.DeviceOrientation\CrossDeviceOrientation.cs">
       <Link>CrossDeviceOrientation.cs</Link>
     </Compile>
-    <Compile Include="DeviceOrientationImplementation.cs" />
+    <Compile Include="..\Plugin.DeviceOrientation.WindowsStore\DeviceOrientationImplementation.cs">
+      <Link>DeviceOrientationImplementation.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Plugin.DeviceOrientation.UWP.rd.xml" />
   </ItemGroup>

@@ -3,17 +3,25 @@ using Plugin.DeviceOrientation.Abstractions;
 
 namespace Plugin.DeviceOrientation
 {
-	public class DeviceOrientationImplementation : IDeviceOrientation
+	public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
 	{
-		public DeviceOrientations CurrentOrientation
+		public override DeviceOrientations CurrentOrientation
 		{
 			get
 			{
-				var currentOrientation = UIApplication.SharedApplication.StatusBarOrientation;
-				bool isPortrait = currentOrientation == UIInterfaceOrientation.Portrait
-					|| currentOrientation == UIInterfaceOrientation.PortraitUpsideDown;
-
-				return isPortrait ? DeviceOrientations.Portrait : DeviceOrientations.Landscape;
+				switch (UIApplication.SharedApplication.StatusBarOrientation)
+				{
+					case UIInterfaceOrientation.Portrait:
+						return DeviceOrientations.Portrait;
+					case UIInterfaceOrientation.PortraitUpsideDown:
+						return DeviceOrientations.PortraitFlipped;
+					case UIInterfaceOrientation.LandscapeRight:
+						return DeviceOrientations.Landscape;
+					case UIInterfaceOrientation.LandscapeLeft:
+						return DeviceOrientations.LandscapeFlipped;
+					default:
+						return DeviceOrientations.Undefined;
+				}
 			}
 		}
 	}

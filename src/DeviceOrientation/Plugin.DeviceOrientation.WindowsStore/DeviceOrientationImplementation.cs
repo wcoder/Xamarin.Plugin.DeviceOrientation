@@ -3,25 +3,42 @@ using Plugin.DeviceOrientation.Abstractions;
 
 namespace Plugin.DeviceOrientation
 {
-	public class DeviceOrientationImplementation : IDeviceOrientation
+	public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
 	{
-		public DeviceOrientations CurrentOrientation
+		private DisplayInformation _displayInformation;
+
+		public override DeviceOrientations CurrentOrientation =>
+			(DeviceOrientations)_displayInformation.CurrentOrientation;
+
+		public DeviceOrientationImplementation()
 		{
-			get
+			_displayInformation = DisplayInformation.GetForCurrentView();
+			_displayInformation.OrientationChanged += DisplayInformationOnOrientationChanged;
+		}
+
+		private void DisplayInformationOnOrientationChanged(DisplayInformation sender, object args)
+		{
+			OnOrientationChanged(new OrientationChangedEventArgs
 			{
-				var orientation = DisplayInformation.GetForCurrentView().CurrentOrientation;
-				switch (orientation)
+				Orientation = CurrentOrientation
+			});
+		}
+
+		private bool _disposed;
+
+		public override void Dispose(bool disposing)
+		{
+			if (!_disposed)
+			{
+				if (disposing)
 				{
-					case DisplayOrientations.Portrait:
-					case DisplayOrientations.PortraitFlipped:
-						return DeviceOrientations.Portrait;
-					case DisplayOrientations.Landscape:
-					case DisplayOrientations.LandscapeFlipped:
-						return DeviceOrientations.Landscape;
-					default:
-						return DeviceOrientations.Undefined;
+					_displayInformation.OrientationChanged -= DisplayInformationOnOrientationChanged;
 				}
+
+				_disposed = true;
 			}
+
+			base.Dispose(disposing);
 		}
 	}
 }
