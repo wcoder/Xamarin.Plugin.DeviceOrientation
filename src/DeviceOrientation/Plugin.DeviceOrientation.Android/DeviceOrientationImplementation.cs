@@ -1,5 +1,7 @@
+using System;
 using Android.App;
 using Android.Content;
+using Android.Hardware;
 using Android.Runtime;
 using Android.Views;
 using Plugin.DeviceOrientation.Abstractions;
@@ -28,6 +30,73 @@ namespace Plugin.DeviceOrientation
 						return DeviceOrientations.Undefined;
 				}
 			}
+		}
+
+
+		public DeviceOrientationImplementation()
+		{
+			var listener = new OrientationListener(OnOrientationChanged);
+			if (listener.CanDetectOrientation())
+			{
+				listener.Enable();
+			}
+		}
+	}
+
+
+	// http://developer.android.com/reference/android/view/OrientationEventListener.html
+	public class OrientationListener : OrientationEventListener
+	{
+		private Action<OrientationChangedEventArgs> _onOrientationChanged;
+
+		public OrientationListener(Action<OrientationChangedEventArgs> onOrientationChanged)
+			: base(Application.Context, SensorDelay.Normal)
+		{
+			_onOrientationChanged = onOrientationChanged;
+		}
+
+		public OrientationListener(IntPtr javaReference, JniHandleOwnership transfer)
+			: base(javaReference, transfer)
+		{
+		}
+
+		public OrientationListener(Context context)
+			: base(context)
+		{
+		}
+
+		public OrientationListener(Context context, SensorDelay rate)
+			: base(context, rate)
+		{
+		}
+
+		public override void OnOrientationChanged(int rotationDegrees)
+		{
+			var args = new OrientationChangedEventArgs();
+
+			if (rotationDegrees >= 0
+			    && rotationDegrees < 90)
+			{
+				args.Orientation = DeviceOrientations.Portrait;
+			} else if (rotationDegrees >= 90
+			           && rotationDegrees < 180)
+			{
+				args.Orientation = DeviceOrientations.Landscape;
+			} else if (rotationDegrees >= 180
+				&& rotationDegrees < 270)
+			{
+				args.Orientation = DeviceOrientations.PortraitFlipped;
+			} else if (rotationDegrees >= 270
+			           && rotationDegrees < 360)
+			{
+				args.Orientation = DeviceOrientations.LandscapeFlipped;
+			}
+			else
+			{
+				args.Orientation = DeviceOrientations.Undefined;
+			}
+
+			_onOrientationChanged(args);
 		}
 	}
 }
