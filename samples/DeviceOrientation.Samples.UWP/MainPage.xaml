@@ -9,5 +9,11 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+		<TextBlock
+			Name="MainLabel"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			Style="{ThemeResource SubheaderTextBlockStyle}" />
+		
     </Grid>
 </Page>

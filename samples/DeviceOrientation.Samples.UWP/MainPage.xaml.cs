@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+﻿using Windows.UI.Xaml.Navigation;
+using Plugin.DeviceOrientation;
 
 namespace DeviceOrientation.Samples.UWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
-        }
-    }
+	public sealed partial class MainPage
+	{
+		public MainPage()
+		{
+			InitializeComponent();
+
+			MainLabel.Text = CrossDeviceOrientation.Current.CurrentOrientation.ToString();
+		}
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+
+			CrossDeviceOrientation.Current.OrientationChanged += Current_OrientationChanged;
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			base.OnNavigatedFrom(e);
+
+			CrossDeviceOrientation.Current.OrientationChanged -= Current_OrientationChanged;
+		}
+
+		private void Current_OrientationChanged(object sender, Plugin.DeviceOrientation.Abstractions.OrientationChangedEventArgs e)
+		{
+			MainLabel.Text = e.Orientation.ToString();
+		}
+	}
 }
