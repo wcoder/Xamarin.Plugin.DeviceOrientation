@@ -6,6 +6,8 @@
     <TextView
         android:text="Text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="24dp"
+        android:gravity="center" />
 </LinearLayout>

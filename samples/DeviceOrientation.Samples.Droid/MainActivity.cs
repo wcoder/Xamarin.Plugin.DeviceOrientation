@@ -8,7 +8,7 @@ namespace DeviceOrientation.Samples.Droid
 	[Activity (Label = "DeviceOrientation.Samples.Droid", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : Activity
 	{
-		private Button _textView;
+		private TextView _textView;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -17,7 +17,7 @@ namespace DeviceOrientation.Samples.Droid
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 
-			_textView = FindViewById<Button> (Resource.Id.textView1);
+			_textView = FindViewById<TextView> (Resource.Id.textView1);
 
 			_textView.Text = CrossDeviceOrientation.Current.CurrentOrientation.ToString();
 
