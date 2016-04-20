@@ -32,19 +32,41 @@ namespace Plugin.DeviceOrientation
 			}
 		}
 
+		private OrientationListener _listener;
 
 		public DeviceOrientationImplementation()
 		{
-			var listener = new OrientationListener(OnOrientationChanged);
-			if (listener.CanDetectOrientation())
+			_listener = new OrientationListener(OnOrientationChanged);
+			if (_listener.CanDetectOrientation())
 			{
-				listener.Enable();
+				_listener.Enable();
 			}
+		}
+
+		private bool _disposed;
+
+		public override void Dispose(bool disposing)
+		{
+			if (!_disposed)
+			{
+				if (disposing && _listener != null)
+				{
+					_listener.Disable();
+					_listener.Dispose();
+				}
+
+				_disposed = true;
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 
 
-	// http://developer.android.com/reference/android/view/OrientationEventListener.html
+	/// <summary>
+	/// OrientationEventListener Android API:
+	/// http://developer.android.com/reference/android/view/OrientationEventListener.html
+	/// </summary>
 	public class OrientationListener : OrientationEventListener
 	{
 		private Action<OrientationChangedEventArgs> _onOrientationChanged;
