@@ -13,7 +13,7 @@ Simple cross platform plugin to get screen orientation of mobile device.
 |Xamarin.iOS|+/-| |
 |Xamarin.iOS Unified|+/-| |
 |Xamarin.Android|Yes|API 3+|
-|Windows Phone Silverlight|+| |
+|Windows Phone Silverlight|+/-|8.0+|
 |Windows Phone RT|Yes|8.1+|
 |Windows Store RT|Yes|8.1+|
 |Windows 10 UWP|Yes|10+|
