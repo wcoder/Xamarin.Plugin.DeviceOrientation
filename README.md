@@ -44,7 +44,7 @@ When device orientation is changed you can register for an event to fire:
 event OrientationChangedEventHandler OrientationChanged;
 ```
 
-You will get a ConnectivityChangeEventArgs with the orientation type:
+You will get a `ConnectivityChangeEventArgs` with the orientation type:
 
 ```csharp
 public class OrientationChangedEventArgs : EventArgs
