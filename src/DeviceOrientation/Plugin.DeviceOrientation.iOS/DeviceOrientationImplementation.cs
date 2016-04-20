@@ -29,6 +29,7 @@ namespace Plugin.DeviceOrientation
 		//		}
 
 		// https://docs.xamarin.com/api/property/UIKit.UIApplication.DidChangeStatusBarOrientationNotification/
+		// http://stackoverflow.com/questions/4758363/how-to-subscribe-self-on-the-event-of-device-orientationnot-interface-orientati
 		public DeviceOrientationImplementation()
 		{
 			//var notificationCenter = NSNotificationCenter.DefaultCenter;
