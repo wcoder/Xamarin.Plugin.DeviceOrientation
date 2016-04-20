@@ -7,8 +7,14 @@ namespace Plugin.DeviceOrientation.Abstractions
 	/// </summary>
 	public interface IDeviceOrientation
 	{
+		/// <summary>
+		/// Event handler when orientation changes
+		/// </summary>
 		event OrientationChangedEventHandler OrientationChanged;
 
+		/// <summary>
+		/// Gets current device orientation
+		/// </summary>
 		DeviceOrientations CurrentOrientation { get; }
 	}
 
