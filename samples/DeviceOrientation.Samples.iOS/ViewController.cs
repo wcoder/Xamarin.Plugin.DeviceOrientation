@@ -1,33 +1,38 @@
 ﻿using System;
-
 using UIKit;
+using Plugin.DeviceOrientation;
+using Plugin.DeviceOrientation.Abstractions;
 
 namespace DeviceOrientation.Samples.iOS
 {
 	public partial class ViewController : UIViewController
 	{
-		int count = 1;
-
-		public ViewController (IntPtr handle) : base (handle)
+		public ViewController(IntPtr handle)
+			: base(handle)
 		{
 		}
 
-		public override void ViewDidLoad ()
+		public override void ViewDidLoad()
 		{
-			base.ViewDidLoad ();
-			// Perform any additional setup after loading the view, typically from a nib.
-			Button.AccessibilityIdentifier = "myButton";
-			Button.TouchUpInside += delegate {
-				var title = string.Format ("{0} clicks!", count++);
-				Button.SetTitle (title, UIControlState.Normal);
-			};
+			base.ViewDidLoad();
+
+			labelView.Text = CrossDeviceOrientation.Current.CurrentOrientation.ToString();
+
+			CrossDeviceOrientation.Current.OrientationChanged += CrossDeviceOrientation_Current_OrientationChanged;
 		}
 
-		public override void DidReceiveMemoryWarning ()
+		public override void ViewDidUnload()
 		{
-			base.DidReceiveMemoryWarning ();
-			// Release any cached data, images, etc that aren't in use.
+			base.ViewDidUnload();
+
+			CrossDeviceOrientation.Current.OrientationChanged -= CrossDeviceOrientation_Current_OrientationChanged;
 		}
+
+		void CrossDeviceOrientation_Current_OrientationChanged(object sender, OrientationChangedEventArgs e)
+		{
+			labelView.Text = e.Orientation.ToString();
+		}
+
 	}
 }
 

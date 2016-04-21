@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>13fc7311-f0a4-4422-995f-ad893b00d14f</ProjectGuid>
+    <ProjectGuid>{13FC7311-F0A4-4422-995F-AD893B00D14F}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>DeviceOrientation.Samples.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
@@ -69,6 +69,15 @@
   <ItemGroup>
     <ProjectReference Include="..\DeviceOrientation.Samples\DeviceOrientation.Samples.csproj">
       <Name>DeviceOrientation.Samples</Name>
+      <Project>{1359B846-CF5E-456E-815E-D617B7C5B31B}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DeviceOrientation\Plugin.DeviceOrientation.Abstractions\Plugin.DeviceOrientation.Abstractions.csproj">
+      <Project>{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}</Project>
+      <Name>Plugin.DeviceOrientation.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\DeviceOrientation\Plugin.DeviceOrientation.iOS\Plugin.DeviceOrientation.iOS.csproj">
+      <Project>{2882AEEB-D4CD-4EB9-8A6C-6653B33681F0}</Project>
+      <Name>Plugin.DeviceOrientation.iOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
