@@ -23,17 +23,14 @@ Simple cross platform plugin to get screen orientation of mobile device.
 
 ### API Usage
 
-Call **CrossDeviceOrientation.Current** from any project or PCL to gain access to APIs.
+Call `CrossDeviceOrientation.Current` from any project or PCL to gain access to APIs.
 
-**CurrentOrientation**
 ```csharp
 /// <summary>
 /// Gets current device orientation
 /// </summary>
 DeviceOrientations CurrentOrientation { get; }
 ```
-
-#### Changes in Orientation
 
 When device orientation is changed you can register for an event to fire:
 
@@ -55,7 +52,16 @@ public class OrientationChangedEventArgs : EventArgs
 public delegate void OrientationChangedEventHandler(object sender, OrientationChangedEventArgs e);
 ```
 
-> ...
+The **DeviceOrientations** enumeration has these members.
+		
+|Member|Value|Description|
+| :----------------: | :-----------: | :------------------ |
+|**Undefined**|0|No display orientation is specified.|
+|**Landscape**|1|Specifies that the monitor is oriented in landscape mode where the width of the display viewing area is greater than the height.|
+|**Portrait**|2|Specifies that the monitor rotated 90 degrees in the clockwise direction to orient the display in portrait mode where the height of the display viewing area is greater than the width.|
+|**LandscapeFlipped**|4|Specifies that the monitor rotated another 90 degrees in the clockwise direction (to equal 180 degrees) to orient the display in landscape mode where the width of the display viewing area is greater than the height. This landscape mode is flipped 180 degrees from the **Landscape** mode.|
+|**PortraitFlipped**|8|Specifies that the monitor rotated another 90 degrees in the clockwise direction (to equal 270 degrees) to orient the display in portrait mode where the height of the display viewing area is greater than the width. This portrait mode is flipped 180 degrees from the **Portrait** mode.|
+
 
 #### Contributors
 * [Yauheni Pakala](https://github.com/wcoder)
