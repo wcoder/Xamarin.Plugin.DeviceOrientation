@@ -62,6 +62,10 @@ The **DeviceOrientations** enumeration has these members.
 |**LandscapeFlipped**|4|Specifies that the monitor rotated another 90 degrees in the clockwise direction (to equal 180 degrees) to orient the display in landscape mode where the width of the display viewing area is greater than the height. This landscape mode is flipped 180 degrees from the **Landscape** mode.|
 |**PortraitFlipped**|8|Specifies that the monitor rotated another 90 degrees in the clockwise direction (to equal 270 degrees) to orient the display in portrait mode where the height of the display viewing area is greater than the width. This portrait mode is flipped 180 degrees from the **Portrait** mode.|
 
+### Additional information
+* [Android - Handling Rotation](https://developer.xamarin.com/guides/android/application_fundamentals/handling_rotation/)
+* [Xamarin.Forms - Device Orientation](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/device-orientation/)
+
 
 #### Contributors
 * [Yauheni Pakala](https://github.com/wcoder)
