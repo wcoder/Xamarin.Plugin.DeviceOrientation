@@ -7,16 +7,26 @@ namespace DeviceOrientation.Samples.iOS
 {
 	public partial class ViewController : UIViewController
 	{
+		//private bool _isLocked;
+
 		public ViewController(IntPtr handle)
 			: base(handle)
 		{
 		}
+
+		// For lock use this:
+		//
+		//public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+		//{
+		//	return UIInterfaceOrientationMask.LandscapeLeft; // example
+		//}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 
 			labelView.Text = CrossDeviceOrientation.Current.CurrentOrientation.ToString();
+			//lockButton.TouchUpInside += LockButton_TouchUpInside;
 
 			CrossDeviceOrientation.Current.OrientationChanged += CrossDeviceOrientation_Current_OrientationChanged;
 		}
@@ -28,7 +38,23 @@ namespace DeviceOrientation.Samples.iOS
 			CrossDeviceOrientation.Current.OrientationChanged -= CrossDeviceOrientation_Current_OrientationChanged;
 		}
 
-		void CrossDeviceOrientation_Current_OrientationChanged(object sender, OrientationChangedEventArgs e)
+		//private void LockButton_TouchUpInside(object sender, EventArgs e)
+		//{
+		//	_isLocked = !_isLocked;
+
+		//	lockButton.SetTitle(_isLocked ? "Unlock" : "Lock", UIControlState.Normal);
+
+		//	if (_isLocked)
+		//	{
+		//		CrossDeviceOrientation.Current.LockOrientation(CrossDeviceOrientation.Current.CurrentOrientation);
+		//	}
+		//	else
+		//	{
+		//		CrossDeviceOrientation.Current.UnlockOrientation();
+		//	}
+		//}
+
+		private void CrossDeviceOrientation_Current_OrientationChanged(object sender, OrientationChangedEventArgs e)
 		{
 			labelView.Text = e.Orientation.ToString();
 		}
