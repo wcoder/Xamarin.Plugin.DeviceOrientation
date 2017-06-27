@@ -6,20 +6,25 @@ Simple cross platform plugin to get screen orientation of mobile device.
 
 > ...
 
-**Platform Support**
+#### Platform Support
 
 |Platform|Supported|Version|
 | ------------------- | :-----------: | :------------------: |
 |Xamarin.iOS|Yes|iOS 2.0+|
 |Xamarin.iOS Unified|Yes||
 |Xamarin.Android|Yes|API 3+|
-|Windows Phone Silverlight|+/-|8.0+|
-|Windows Phone RT|Yes|8.1+|
-|Windows Store RT|Yes|8.1+|
-|Windows 10 UWP|Yes|10+|
+|Universal Windows Platform|Yes|10.0.10240+|
 |Xamarin.Mac|No||
+|Xamarin.Forms|||
 
-> +/- [not tested on device]
+#### Deprecated platforms
+
+* Windows Phone Silverlight
+* Windows Phone RT
+* Windows Store RT
+
+Implementations for unsupported platforms contains [here](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/tree/deprecated/src/DeviceOrientation/).
+
 
 ### API Usage
 
@@ -53,7 +58,7 @@ public delegate void OrientationChangedEventHandler(object sender, OrientationCh
 ```
 
 The **DeviceOrientations** enumeration has these members.
-		
+
 |Member|Value|Description|
 | :----------------: | :-----------: | :------------------ |
 |**Undefined**|0|No display orientation is specified.|
@@ -71,4 +76,4 @@ The **DeviceOrientations** enumeration has these members.
 * [Yauheni Pakala](https://github.com/wcoder)
 
 ---
-&copy; 2016 MIT License
+&copy; 2017 MIT License
