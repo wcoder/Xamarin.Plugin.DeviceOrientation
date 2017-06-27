@@ -9,6 +9,16 @@ namespace Plugin.DeviceOrientation.Abstractions
 		/// </summary>
 		public abstract DeviceOrientations CurrentOrientation { get; }
 
+		/// <summary>
+		/// Lock orientation in the specified position
+		/// </summary>
+		/// <param name="orientation">Position for lock.</param>
+		public abstract void LockOrientation(DeviceOrientations orientation);
+
+		/// <summary>
+		/// Unlock orientation
+		/// </summary>
+		public abstract void UnlockOrientation();
 
 		/// <summary>
 		/// Event that fires when orientation changes

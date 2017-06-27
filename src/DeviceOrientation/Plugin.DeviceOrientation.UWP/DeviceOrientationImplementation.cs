@@ -5,15 +5,29 @@ namespace Plugin.DeviceOrientation
 {
 	public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
 	{
-		private DisplayInformation _displayInformation;
+		private bool _disposed;
+		private readonly DisplayInformation _displayInformation;
 
 		public override DeviceOrientations CurrentOrientation =>
-			(DeviceOrientations)_displayInformation.CurrentOrientation;
+			(DeviceOrientations) _displayInformation.CurrentOrientation;
 
 		public DeviceOrientationImplementation()
 		{
 			_displayInformation = DisplayInformation.GetForCurrentView();
 			_displayInformation.OrientationChanged += DisplayInformationOnOrientationChanged;
+		}
+
+		public override void LockOrientation(DeviceOrientations orientation)
+		{
+			DisplayInformation.AutoRotationPreferences = (DisplayOrientations) orientation;
+		}
+
+		public override void UnlockOrientation()
+		{
+			DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape
+			                                             | DisplayOrientations.LandscapeFlipped
+			                                             | DisplayOrientations.Portrait
+			                                             | DisplayOrientations.PortraitFlipped;
 		}
 
 		private void DisplayInformationOnOrientationChanged(DisplayInformation sender, object args)
@@ -23,8 +37,6 @@ namespace Plugin.DeviceOrientation
 				Orientation = CurrentOrientation
 			});
 		}
-
-		private bool _disposed;
 
 		public override void Dispose(bool disposing)
 		{

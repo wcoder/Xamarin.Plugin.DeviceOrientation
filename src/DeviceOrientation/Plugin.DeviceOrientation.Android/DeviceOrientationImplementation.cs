@@ -1,38 +1,30 @@
 using System;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Hardware;
 using Android.Runtime;
 using Android.Views;
+using Plugin.CurrentActivity;
 using Plugin.DeviceOrientation.Abstractions;
 
 namespace Plugin.DeviceOrientation
 {
 	public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
 	{
+		private bool _disposed;
+		private readonly OrientationListener _listener;
+
 		public override DeviceOrientations CurrentOrientation
 		{
 			get
 			{
-				IWindowManager windowManager = Application.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>();
+				var activity = CrossCurrentActivity.Current.Activity;
+				var rotation = activity.WindowManager.DefaultDisplay.Rotation;
 
-				switch (windowManager.DefaultDisplay.Rotation)
-				{
-					case SurfaceOrientation.Rotation0:
-						return DeviceOrientations.Portrait;
-					case SurfaceOrientation.Rotation180:
-						return DeviceOrientations.PortraitFlipped;
-					case SurfaceOrientation.Rotation90:
-						return DeviceOrientations.Landscape;
-					case SurfaceOrientation.Rotation270:
-						return DeviceOrientations.LandscapeFlipped;
-					default:
-						return DeviceOrientations.Undefined;
-				}
+				return Convert(rotation);
 			}
 		}
-
-		private OrientationListener _listener;
 
 		public DeviceOrientationImplementation()
 		{
@@ -43,7 +35,19 @@ namespace Plugin.DeviceOrientation
 			}
 		}
 
-		private bool _disposed;
+		public override void LockOrientation(DeviceOrientations orientation)
+		{
+			var activity = CrossCurrentActivity.Current.Activity;
+
+			activity.RequestedOrientation = Convert(orientation);
+		}
+
+		public override void UnlockOrientation()
+		{
+			var activity = CrossCurrentActivity.Current.Activity;
+
+			activity.RequestedOrientation = Convert(DeviceOrientations.Undefined);
+		}
 
 		public override void Dispose(bool disposing)
 		{
@@ -60,6 +64,41 @@ namespace Plugin.DeviceOrientation
 
 			base.Dispose(disposing);
 		}
+
+		private ScreenOrientation Convert(DeviceOrientations orientation)
+		{
+			switch (orientation)
+			{
+				case DeviceOrientations.Portrait:
+					return ScreenOrientation.Portrait;
+				case DeviceOrientations.PortraitFlipped:
+					return ScreenOrientation.ReversePortrait;
+				case DeviceOrientations.Landscape:
+					return ScreenOrientation.Landscape;
+				case DeviceOrientations.LandscapeFlipped:
+					return ScreenOrientation.ReverseLandscape;
+				case DeviceOrientations.Undefined:
+				default:
+					return ScreenOrientation.Unspecified;
+			}
+		}
+
+		public DeviceOrientations Convert(SurfaceOrientation orientation)
+		{
+			switch (orientation)
+			{
+				case SurfaceOrientation.Rotation0:
+					return DeviceOrientations.Portrait;
+				case SurfaceOrientation.Rotation180:
+					return DeviceOrientations.PortraitFlipped;
+				case SurfaceOrientation.Rotation90:
+					return DeviceOrientations.Landscape;
+				case SurfaceOrientation.Rotation270:
+					return DeviceOrientations.LandscapeFlipped;
+				default:
+					return DeviceOrientations.Undefined;
+			}
+		}
 	}
 
 
@@ -69,7 +108,7 @@ namespace Plugin.DeviceOrientation
 	/// </summary>
 	public class OrientationListener : OrientationEventListener
 	{
-		private Action<OrientationChangedEventArgs> _onOrientationChanged;
+		private readonly Action<OrientationChangedEventArgs> _onOrientationChanged;
 
 		public OrientationListener(Action<OrientationChangedEventArgs> onOrientationChanged)
 			: base(Application.Context, SensorDelay.Normal)

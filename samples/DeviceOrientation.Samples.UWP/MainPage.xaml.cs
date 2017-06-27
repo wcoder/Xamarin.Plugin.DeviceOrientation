@@ -1,10 +1,14 @@
-﻿using Windows.UI.Xaml.Navigation;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 using Plugin.DeviceOrientation;
+using Plugin.DeviceOrientation.Abstractions;
 
 namespace DeviceOrientation.Samples.UWP
 {
 	public sealed partial class MainPage
 	{
+		private bool _isLocked;
+
 		public MainPage()
 		{
 			InitializeComponent();
@@ -26,9 +30,25 @@ namespace DeviceOrientation.Samples.UWP
 			CrossDeviceOrientation.Current.OrientationChanged -= Current_OrientationChanged;
 		}
 
-		private void Current_OrientationChanged(object sender, Plugin.DeviceOrientation.Abstractions.OrientationChangedEventArgs e)
+		private void Current_OrientationChanged(object sender, OrientationChangedEventArgs e)
 		{
 			MainLabel.Text = e.Orientation.ToString();
+		}
+
+		private void LockButton_OnClick(object sender, RoutedEventArgs e)
+		{
+			_isLocked = !_isLocked;
+
+			LockButton.Content = _isLocked ? "Unlock" : "Lock";
+
+			if (_isLocked)
+			{
+				CrossDeviceOrientation.Current.LockOrientation(CrossDeviceOrientation.Current.CurrentOrientation);
+			}
+			else
+			{
+				CrossDeviceOrientation.Current.UnlockOrientation();
+			}
 		}
 	}
 }
