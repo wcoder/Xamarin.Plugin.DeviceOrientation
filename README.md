@@ -2,6 +2,8 @@
 
 Simple cross platform plugin to get screen orientation of mobile device.
 
+[iOS demo](https://youtu.be/3eQDrHMPmE4)
+
 ### Setup
 
 > ...
