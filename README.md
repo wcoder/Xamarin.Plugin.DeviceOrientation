@@ -1,6 +1,6 @@
 ## Device Orientation Plugin for Xamarin and Windows
 
-Simple cross platform plugin to get screen orientation of mobile device.
+Simple cross-platform plugin to work with screen orientation of mobile device.
 
 [iOS demo](https://youtu.be/3eQDrHMPmE4)
 
@@ -12,8 +12,8 @@ Simple cross platform plugin to get screen orientation of mobile device.
 
 |Platform|Supported|Version|
 | ------------------- | :-----------: | :------------------: |
-|Xamarin.iOS|+/-|iOS 2.0+|
-|Xamarin.Android|Yes|API 3+|
+|Xamarin.iOS|Yes||
+|Xamarin.Android|Yes||
 |Universal Windows Platform|Yes|10.0.10240+|
 |Xamarin.Forms|||
 
