@@ -1,111 +1,176 @@
-using UIKit;
+using CoreFoundation;
 using Foundation;
+using UIKit;
 using Plugin.DeviceOrientation.Abstractions;
 
 namespace Plugin.DeviceOrientation
 {
-	// https://docs.xamarin.com/api/property/UIKit.UIApplication.DidChangeStatusBarOrientationNotification/
-	// http://stackoverflow.com/questions/4758363/how-to-subscribe-self-on-the-event-of-device-orientationnot-interface-orientati
-	public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
-	{
-		private readonly NSObject _observer;
-		private bool _disposed;
+    // https://docs.xamarin.com/api/property/UIKit.UIApplication.DidChangeStatusBarOrientationNotification/
+    // https://stackoverflow.com/a/4759383
+    public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
+    {
+        private static DeviceOrientations _lockedOrientation = DeviceOrientations.Undefined;
 
-		public DeviceOrientationImplementation()
-		{
-			_observer = NSNotificationCenter.DefaultCenter.AddObserver(
-				UIApplication.DidChangeStatusBarOrientationNotification,
-				DeviceOrientationDidChange);
-			UIDevice.CurrentDevice.BeginGeneratingDeviceOrientationNotifications();
-		}
+        private readonly NSObject _observer;
+        private bool _disposed;
 
-		public override DeviceOrientations CurrentOrientation => Convert(UIApplication.SharedApplication.StatusBarOrientation);
 
-		public override void LockOrientation(DeviceOrientations orientation)
-		{
-			// TODO:
-		}
+        public DeviceOrientationImplementation()
+        {
+            _observer = NSNotificationCenter.DefaultCenter.AddObserver(
+                UIApplication.DidChangeStatusBarOrientationNotification,
+                DeviceOrientationDidChange);
+            UIDevice.CurrentDevice.BeginGeneratingDeviceOrientationNotifications();
+        }
 
-		public override void UnlockOrientation()
-		{
-			// TODO:
-		}
+        private static UIDeviceOrientation CurrentDeviceOrientation => UIDevice.CurrentDevice.Orientation;
 
-		/// <summary>
-		/// Devices the orientation did change.
-		/// </summary>
-		private void DeviceOrientationDidChange(NSNotification notification)
-		{
-			OnOrientationChanged(new OrientationChangedEventArgs
-			{
-				Orientation = Convert(UIDevice.CurrentDevice.Orientation)
-			});
-		}
+        public static bool ShouldAutorotate
+        {
+            get
+            {
+                var result = CurrentDeviceOrientation == UIDeviceOrientation.Unknown;
+                switch (_lockedOrientation)
+                {
+                    case DeviceOrientations.Landscape:
+                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.LandscapeRight;
+                        break;
+                    case DeviceOrientations.LandscapeFlipped:
+                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.LandscapeLeft;
+                        break;
+                    case DeviceOrientations.Portrait:
+                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.PortraitUpsideDown;
+                        break;
+                    case DeviceOrientations.PortraitFlipped:
+                        result = result || CurrentDeviceOrientation == UIDeviceOrientation.Portrait;
+                        break;
+                    default:
+                        result = true;
+                        break;
+                }
+                return result;
+            }
+        }
 
-		public override void Dispose(bool disposing)
-		{
-			if (!_disposed)
-			{
-				if (disposing && _observer != null)
-				{
-					NSNotificationCenter.DefaultCenter.RemoveObserver(_observer);
-				}
 
-				_disposed = true;
-			}
+        public override DeviceOrientations CurrentOrientation =>
+            Convert(UIApplication.SharedApplication.StatusBarOrientation);
 
-			base.Dispose(disposing);
-		}
 
-		/*private UIInterfaceOrientation Convert(DeviceOrientations orientation)
-		{
-			switch (orientation)
-			{
-				case DeviceOrientations.Portrait:
-					return UIInterfaceOrientation.Portrait;
-				case DeviceOrientations.PortraitFlipped:
-					return UIInterfaceOrientation.PortraitUpsideDown;
-				case DeviceOrientations.LandscapeFlipped:
-					return UIInterfaceOrientation.LandscapeRight;
-				case DeviceOrientations.Landscape:
-					return UIInterfaceOrientation.LandscapeLeft;
-				default:
-					return UIInterfaceOrientation.Unknown;
-			}
-		}*/
+        public override void LockOrientation(DeviceOrientations orientation)
+        {
+            _lockedOrientation = orientation;
 
-		private DeviceOrientations Convert(UIInterfaceOrientation orientation)
-		{
-			switch (orientation)
-			{
-				case UIInterfaceOrientation.Portrait:
-					return DeviceOrientations.Portrait;
-				case UIInterfaceOrientation.PortraitUpsideDown:
-					return DeviceOrientations.PortraitFlipped;
-				case UIInterfaceOrientation.LandscapeRight:
-					return DeviceOrientations.LandscapeFlipped;
-				case UIInterfaceOrientation.LandscapeLeft:
-					return DeviceOrientations.Landscape;
-				default:
-					return DeviceOrientations.Undefined;
-			}
-		}
+            SetDeviceOrientation(orientation);
+        }
 
-		private DeviceOrientations Convert(UIDeviceOrientation orientation)
-		{
-			switch (orientation)
-			{
-				case UIDeviceOrientation.Portrait:
-					return DeviceOrientations.Portrait;
-				case UIDeviceOrientation.PortraitUpsideDown:
-					return DeviceOrientations.PortraitFlipped;
-				case UIDeviceOrientation.LandscapeRight:
-					return DeviceOrientations.LandscapeFlipped;
-				case UIDeviceOrientation.LandscapeLeft:
-					return DeviceOrientations.Landscape;
-				default:
-					return DeviceOrientations.Undefined;
-			}
-		}
-	}
+        public override void UnlockOrientation()
+        {
+            _lockedOrientation = DeviceOrientations.Undefined;
+
+            SetDeviceOrientation(Reverse(Convert(CurrentDeviceOrientation)));
+        }
+
+        /// <summary>
+        ///     Devices the orientation did change.
+        /// </summary>
+        private void DeviceOrientationDidChange(NSNotification notification)
+        {
+            OnOrientationChanged(new OrientationChangedEventArgs
+            {
+                Orientation = Convert(CurrentDeviceOrientation)
+            });
+        }
+
+        public override void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing && _observer != null)
+                    NSNotificationCenter.DefaultCenter.RemoveObserver(_observer);
+
+                _disposed = true;
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void SetDeviceOrientation(DeviceOrientations orientation)
+        {
+            DispatchQueue.MainQueue.DispatchAsync(() =>
+            {
+                UIDevice.CurrentDevice.SetValueForKey(
+                    NSObject.FromObject(Convert(orientation)),
+                    new NSString("orientation"));
+                UIViewController.AttemptRotationToDeviceOrientation();
+            });
+        }
+
+        private UIInterfaceOrientation Convert(DeviceOrientations orientation)
+        {
+            switch (orientation)
+            {
+                case DeviceOrientations.Portrait:
+                    return UIInterfaceOrientation.Portrait;
+                case DeviceOrientations.PortraitFlipped:
+                    return UIInterfaceOrientation.PortraitUpsideDown;
+                case DeviceOrientations.LandscapeFlipped:
+                    return UIInterfaceOrientation.LandscapeRight;
+                case DeviceOrientations.Landscape:
+                    return UIInterfaceOrientation.LandscapeLeft;
+                default:
+                    return UIInterfaceOrientation.Unknown;
+            }
+        }
+
+        private DeviceOrientations Convert(UIInterfaceOrientation orientation)
+        {
+            switch (orientation)
+            {
+                case UIInterfaceOrientation.Portrait:
+                    return DeviceOrientations.Portrait;
+                case UIInterfaceOrientation.PortraitUpsideDown:
+                    return DeviceOrientations.PortraitFlipped;
+                case UIInterfaceOrientation.LandscapeRight:
+                    return DeviceOrientations.LandscapeFlipped;
+                case UIInterfaceOrientation.LandscapeLeft:
+                    return DeviceOrientations.Landscape;
+                default:
+                    return DeviceOrientations.Undefined;
+            }
+        }
+
+        private DeviceOrientations Convert(UIDeviceOrientation orientation)
+        {
+            switch (orientation)
+            {
+                case UIDeviceOrientation.Portrait:
+                    return DeviceOrientations.Portrait;
+                case UIDeviceOrientation.PortraitUpsideDown:
+                    return DeviceOrientations.PortraitFlipped;
+                case UIDeviceOrientation.LandscapeRight:
+                    return DeviceOrientations.LandscapeFlipped;
+                case UIDeviceOrientation.LandscapeLeft:
+                    return DeviceOrientations.Landscape;
+                default:
+                    return DeviceOrientations.Undefined;
+            }
+        }
+
+        private DeviceOrientations Reverse(DeviceOrientations orientation)
+        {
+            switch (orientation)
+            {
+                case DeviceOrientations.Portrait:
+                case DeviceOrientations.PortraitFlipped:
+                    return DeviceOrientations.Portrait;
+                case DeviceOrientations.Landscape:
+                    return DeviceOrientations.LandscapeFlipped;
+                case DeviceOrientations.LandscapeFlipped:
+                    return DeviceOrientations.Landscape;
+                default:
+                    return DeviceOrientations.Undefined;
+            }
+        }
+    }
 }
