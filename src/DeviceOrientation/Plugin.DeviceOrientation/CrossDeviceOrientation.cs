@@ -28,10 +28,10 @@ namespace Plugin.DeviceOrientation
 
     static IDeviceOrientation CreateDeviceOrientation()
     {
-#if PORTABLE
+#if NETSTANDARD1_0
         return null;
 #else
-        return new DeviceOrientationImplementation();
+            return new DeviceOrientationImplementation();
 #endif
     }
 
