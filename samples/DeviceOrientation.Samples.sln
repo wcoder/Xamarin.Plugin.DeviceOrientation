@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceOrientation.Samples.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.DeviceOrientation", "..\src\DeviceOrientation\Plugin.DeviceOrientation\Plugin.DeviceOrientation.csproj", "{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.DeviceOrientation.Abstractions", "..\src\DeviceOrientation\Plugin.DeviceOrientation.Abstractions\Plugin.DeviceOrientation.Abstractions.csproj", "{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plugin.DeviceOrientation.Abstractions", "..\src\DeviceOrientation\Plugin.DeviceOrientation.Abstractions\Plugin.DeviceOrientation.Abstractions.csproj", "{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.DeviceOrientation.Android", "..\src\DeviceOrientation\Plugin.DeviceOrientation.Android\Plugin.DeviceOrientation.Android.csproj", "{56A56F17-7DE1-4CA1-9617-BF32E971AC84}"
 EndProject
@@ -221,8 +221,8 @@ Global
 		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.AppStore|x64.Build.0 = Release|Any CPU
 		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.AppStore|x86.ActiveCfg = Release|Any CPU
 		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.AppStore|x86.Build.0 = Release|Any CPU
-		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|ARM.Build.0 = Debug|Any CPU
 		{A6FCEF44-D2BA-42C7-B3CB-13667BCD7B54}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -257,8 +257,8 @@ Global
 		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.AppStore|x64.Build.0 = Release|Any CPU
 		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.AppStore|x86.ActiveCfg = Release|Any CPU
 		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.AppStore|x86.Build.0 = Release|Any CPU
-		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|ARM.Build.0 = Debug|Any CPU
 		{6EDB0588-FFC5-4EF5-8A99-9E241D0F878D}.Debug|iPhone.ActiveCfg = Debug|Any CPU
