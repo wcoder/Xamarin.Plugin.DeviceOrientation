@@ -2,72 +2,72 @@
 
 namespace Plugin.DeviceOrientation.Abstractions
 {
-	public abstract class BaseDeviceOrientationImplementation : IDeviceOrientation, IDisposable
-	{
-		/// <summary>
-		/// Current device orientation
-		/// </summary>
-		public abstract DeviceOrientations CurrentOrientation { get; }
+    public abstract class BaseDeviceOrientationImplementation : IDeviceOrientation, IDisposable
+    {
+        private bool _disposed;
 
-		/// <summary>
-		/// Lock orientation in the specified position
-		/// </summary>
-		/// <param name="orientation">Position for lock.</param>
-		public abstract void LockOrientation(DeviceOrientations orientation);
+        /// <summary>
+        ///     Current device orientation
+        /// </summary>
+        public abstract DeviceOrientations CurrentOrientation { get; }
 
-		/// <summary>
-		/// Unlock orientation
-		/// </summary>
-		public abstract void UnlockOrientation();
+        /// <summary>
+        ///     Lock orientation in the specified position
+        /// </summary>
+        /// <param name="orientation">Position for lock.</param>
+        public abstract void LockOrientation(DeviceOrientations orientation);
 
-		/// <summary>
-		/// Event that fires when orientation changes
-		/// </summary>
-		public event OrientationChangedEventHandler OrientationChanged;
+        /// <summary>
+        ///     Unlock orientation
+        /// </summary>
+        public abstract void UnlockOrientation();
 
-		/// <summary>
-		/// When orientation changes
-		/// </summary>
-		/// <param name="e"></param>
-		protected virtual void OnOrientationChanged(OrientationChangedEventArgs e)
-		{
-			OrientationChanged?.Invoke(this, e);
-		}
+        /// <summary>
+        ///     Event that fires when orientation changes
+        /// </summary>
+        public event OrientationChangedEventHandler OrientationChanged;
 
-		/// <summary>
-		/// Dispose of class and parent classes
-		/// </summary>
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
+        /// <summary>
+        ///     Dispose of class and parent classes
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-		/// <summary>
-		/// Dispose up
-		/// </summary>
-		~BaseDeviceOrientationImplementation()
-		{
-			Dispose(false);
-		}
+        /// <summary>
+        ///     When orientation changes
+        /// </summary>
+        /// <param name="e"></param>
+        protected virtual void OnOrientationChanged(OrientationChangedEventArgs e)
+        {
+            OrientationChanged?.Invoke(this, e);
+        }
 
-		private bool _disposed;
+        /// <summary>
+        ///     Dispose up
+        /// </summary>
+        ~BaseDeviceOrientationImplementation()
+        {
+            Dispose(false);
+        }
 
-		/// <summary>
-		/// Dispose method
-		/// </summary>
-		/// <param name="disposing"></param>
-		public virtual void Dispose(bool disposing)
-		{
-			if (!_disposed)
-			{
-				if (disposing)
-				{
-					//dispose only
-				}
+        /// <summary>
+        ///     Dispose method
+        /// </summary>
+        /// <param name="disposing"></param>
+        public virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    //dispose only
+                }
 
-				_disposed = true;
-			}
-		}
-	}
+                _disposed = true;
+            }
+        }
+    }
 }

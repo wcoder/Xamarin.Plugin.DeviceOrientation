@@ -1,7 +1,7 @@
 ﻿using System;
-using UIKit;
 using Plugin.DeviceOrientation;
 using Plugin.DeviceOrientation.Abstractions;
+using UIKit;
 
 namespace DeviceOrientation.Samples.iOS
 {
