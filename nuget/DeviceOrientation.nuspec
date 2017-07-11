@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="2.8.1">
     <id>Plugin.DeviceOrientation</id>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
     <title>Device Orientation Plugin for Xamarin and Windows</title>
     <authors>Yauheni Pakala</authors>
     <owners>Yauheni Pakala</owners>
@@ -18,33 +18,11 @@
     <summary>Simple cross-platform plugin to work with screen orientation of mobile device.</summary>
     <tags>xamarin, pcl, xam.pcl, orientation, .netstandart, uwp, android, xamarin.forms, ios, orientation lock, device orientation</tags>
     <dependencies>
-      <group targetFramework="net">
-      </group>
-      <group targetFramework="win">
-      </group>
-      <group targetFramework="wp">
-      </group>
-      <group targetFramework="wpa">
-      </group>
       <group targetFramework="netstandard1.0">
         <dependency id="NETStandard.Library" version="1.6.1" />
       </group>
       <group targetFramework="MonoAndroid10">
         <dependency id="Plugin.CurrentActivity" version="1.0.1"/>
-      </group>
-      <group targetFramework="Xamarin.iOS10">
-      </group>
-      <group targetFramework="Xamarin.Mac20">
-      </group>
-      <group targetFramework="portable-net45+win+wpa81+wp80">
-      </group>
-      <group targetFramework="uap">
-      </group>
-      <group targetFramework="dotnet">
-      </group>
-      <group targetFramework="xamarintvos">
-      </group>
-      <group targetFramework="xamarinwatchos">
       </group>
     </dependencies>
   </metadata>
