@@ -4,6 +4,8 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 
 [iOS demo](https://youtu.be/3eQDrHMPmE4)
 
+[Xamarin.Forms sample](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/tree/master/samples/Xamarin.Forms-sample)
+
 #### Setup
 
 * Available on NuGet: [![NuGet](https://img.shields.io/nuget/v/Plugin.DeviceOrientation.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.DeviceOrientation/)
@@ -13,7 +15,7 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 
 |Platform|Version|
 | ------------------- | :------------------: |
-|Xamarin.iOS|iOS 8+|
+|Xamarin.iOS|iOS 5+|
 |Xamarin.Android|API 14+|
 |Windows 10 UWP|10.0.10240+|
 
