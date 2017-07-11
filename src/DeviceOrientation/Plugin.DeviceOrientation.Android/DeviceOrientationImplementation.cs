@@ -137,13 +137,13 @@ namespace Plugin.DeviceOrientation
                 args.Orientation = DeviceOrientations.Portrait;
             else if (rotationDegrees >= 90
                      && rotationDegrees < 180)
-                args.Orientation = DeviceOrientations.Landscape;
+                args.Orientation = DeviceOrientations.LandscapeFlipped;
             else if (rotationDegrees >= 180
                      && rotationDegrees < 270)
                 args.Orientation = DeviceOrientations.PortraitFlipped;
             else if (rotationDegrees >= 270
                      && rotationDegrees < 360)
-                args.Orientation = DeviceOrientations.LandscapeFlipped;
+                args.Orientation = DeviceOrientations.Landscape;
             else
                 args.Orientation = DeviceOrientations.Undefined;
 
