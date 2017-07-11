@@ -130,24 +130,10 @@ namespace Plugin.DeviceOrientation
 
         public override void OnOrientationChanged(int rotationDegrees)
         {
-            var args = new OrientationChangedEventArgs();
-
-            if (rotationDegrees >= 0
-                && rotationDegrees < 90)
-                args.Orientation = DeviceOrientations.Portrait;
-            else if (rotationDegrees >= 90
-                     && rotationDegrees < 180)
-                args.Orientation = DeviceOrientations.LandscapeFlipped;
-            else if (rotationDegrees >= 180
-                     && rotationDegrees < 270)
-                args.Orientation = DeviceOrientations.PortraitFlipped;
-            else if (rotationDegrees >= 270
-                     && rotationDegrees < 360)
-                args.Orientation = DeviceOrientations.Landscape;
-            else
-                args.Orientation = DeviceOrientations.Undefined;
-
-            _onOrientationChanged(args);
+            _onOrientationChanged(new OrientationChangedEventArgs
+            {
+                Orientation = CrossDeviceOrientation.Current.CurrentOrientation
+            });
         }
     }
 }
