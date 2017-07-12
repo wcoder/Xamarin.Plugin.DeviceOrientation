@@ -15,7 +15,7 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 
 |Platform|Version|
 | ------------------- | :------------------: |
-|Xamarin.iOS|iOS 5+|
+|Xamarin.iOS|iOS 6+|
 |Xamarin.Android|API 14+|
 |Windows 10 UWP|10.0.10240+|
 
