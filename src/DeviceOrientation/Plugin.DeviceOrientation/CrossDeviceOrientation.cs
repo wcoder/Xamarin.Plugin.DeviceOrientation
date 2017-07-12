@@ -13,6 +13,11 @@ namespace Plugin.DeviceOrientation
             new Lazy<IDeviceOrientation>(() => CreateDeviceOrientation(), LazyThreadSafetyMode.PublicationOnly);
 
         /// <summary>
+        ///     Gets if the plugin is supported on the current platform.
+        /// </summary>
+        public static bool IsSupported => Implementation.Value != null;
+
+        /// <summary>
         ///     Current settings to use
         /// </summary>
         public static IDeviceOrientation Current
