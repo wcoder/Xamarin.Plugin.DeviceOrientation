@@ -8,7 +8,7 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 
 #### Setup
 
-* Available on NuGet: [![NuGet](https://img.shields.io/nuget/v/Plugin.DeviceOrientation.svg?label=NuGet)](https://www.nuget.org/packages/Plugin.DeviceOrientation/)
+* Available on NuGet: [![NuGet Badge](https://buildstats.info/nuget/Plugin.DeviceOrientation)](https://www.nuget.org/packages/Plugin.DeviceOrientation/)
 * Install into your PCL project and Platform Specific projects
 
 #### Platform Support
