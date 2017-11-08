@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="2.8.1">
     <id>Plugin.DeviceOrientation</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <title>Device Orientation Plugin for Xamarin and Windows</title>
     <authors>Yauheni Pakala</authors>
     <owners>Yauheni Pakala</owners>
