@@ -4,8 +4,9 @@
              xmlns:local="clr-namespace:TestNugetDeviceOrientationPlugin"
              x:Class="TestNugetDeviceOrientationPlugin.MainPage">
 
-	<Label x:Name="OrientationLabel" Text="..." 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="Click for lock/unlock:" />
+        <Button x:Name="OrientationLabel" Text="..." />
+    </StackLayout>
 
 </ContentPage>
