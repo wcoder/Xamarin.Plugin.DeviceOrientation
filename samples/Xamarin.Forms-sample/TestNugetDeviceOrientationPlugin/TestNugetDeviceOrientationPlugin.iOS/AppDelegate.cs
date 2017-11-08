@@ -27,5 +27,13 @@ namespace TestNugetDeviceOrientationPlugin.iOS
 
             return base.FinishedLaunching(app, options);
         }
+
+
+        // Details: https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation#xamarinforms-ios
+        [Export("application:supportedInterfaceOrientationsForWindow:")]
+        public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+        {
+            return Plugin.DeviceOrientation.DeviceOrientationImplementation.SupportedInterfaceOrientations;
+        }
     }
 }
