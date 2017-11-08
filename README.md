@@ -105,6 +105,20 @@ public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
 ```
 In your `Info.plist` need set all device orientations.
 
+#### Xamarin.Forms iOS
+
+If you want to lock orientation for the all iOS application. 
+
+Add this code in your `AppDelegate.cs`:
+```csharp
+[Export("application:supportedInterfaceOrientationsForWindow:")]
+public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+{
+    return DeviceOrientationImplementation.SupportedInterfaceOrientations;
+}
+```
+**Note:** In this case for lock/unlock orientation on the same screen needs using `LockOrientation`/`UnlockOrientation` methods.
+
 ## Additional information
 * [Android - Handling Rotation](https://developer.xamarin.com/guides/android/application_fundamentals/handling_rotation/)
 * [Xamarin.Forms - Device Orientation](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/device-orientation/)

@@ -56,6 +56,8 @@ namespace Plugin.DeviceOrientation
         public override DeviceOrientations CurrentOrientation =>
             Convert(UIApplication.SharedApplication.StatusBarOrientation);
 
+        public static UIInterfaceOrientationMask SupportedInterfaceOrientations =>
+            ConvertToMask(_lockedOrientation);
 
         public override void LockOrientation(DeviceOrientations orientation)
         {
@@ -104,6 +106,23 @@ namespace Plugin.DeviceOrientation
                     new NSString("orientation"));
                 UIViewController.AttemptRotationToDeviceOrientation();
             });
+        }
+
+        private static UIInterfaceOrientationMask ConvertToMask(DeviceOrientations orientation)
+        {
+            switch (orientation)
+            {
+                case DeviceOrientations.Portrait:
+                    return UIInterfaceOrientationMask.Portrait;
+                case DeviceOrientations.PortraitFlipped:
+                    return UIInterfaceOrientationMask.PortraitUpsideDown;
+                case DeviceOrientations.LandscapeFlipped:
+                    return UIInterfaceOrientationMask.LandscapeRight;
+                case DeviceOrientations.Landscape:
+                    return UIInterfaceOrientationMask.LandscapeLeft;
+                default:
+                    return UIInterfaceOrientationMask.AllButUpsideDown;
+            }
         }
 
         private UIInterfaceOrientation Convert(DeviceOrientations orientation)
