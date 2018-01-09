@@ -107,6 +107,8 @@ namespace Plugin.DeviceOrientation
     {
         private readonly Action<OrientationChangedEventArgs> _onOrientationChanged;
 
+        private DeviceOrientations _cachedOrientation;
+
         public OrientationListener(Action<OrientationChangedEventArgs> onOrientationChanged)
             : base(Application.Context, SensorDelay.Normal)
         {
@@ -130,10 +132,17 @@ namespace Plugin.DeviceOrientation
 
         public override void OnOrientationChanged(int rotationDegrees)
         {
-            _onOrientationChanged(new OrientationChangedEventArgs
+            var currentOrientation = CrossDeviceOrientation.Current.CurrentOrientation;
+
+            if (currentOrientation != _cachedOrientation)
             {
-                Orientation = CrossDeviceOrientation.Current.CurrentOrientation
-            });
+                _cachedOrientation = currentOrientation;
+
+                _onOrientationChanged(new OrientationChangedEventArgs
+                {
+                    Orientation = currentOrientation
+                });
+            }
         }
     }
 }
