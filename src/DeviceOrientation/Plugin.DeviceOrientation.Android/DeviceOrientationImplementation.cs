@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -27,24 +28,33 @@ namespace Plugin.DeviceOrientation
             get
             {
                 var activity = CrossCurrentActivity.Current.Activity;
-                var rotation = activity.WindowManager.DefaultDisplay.Rotation;
+                if (activity != null)
+                {
+                    var rotation = activity.WindowManager.DefaultDisplay.Rotation;
 
-                return Convert(rotation);
+                    return Convert(rotation);
+                }
+                else
+                {
+                    Debug.WriteLine("CrossCurrentActivity plugin can't get Activity.");
+
+                    return DeviceOrientations.Undefined;
+                }
             }
         }
 
         public override void LockOrientation(DeviceOrientations orientation)
         {
             var activity = CrossCurrentActivity.Current.Activity;
-
-            activity.RequestedOrientation = Convert(orientation);
+            if (activity != null)
+            {
+                activity.RequestedOrientation = Convert(orientation);
+            }
         }
 
         public override void UnlockOrientation()
         {
-            var activity = CrossCurrentActivity.Current.Activity;
-
-            activity.RequestedOrientation = Convert(DeviceOrientations.Undefined);
+            LockOrientation(DeviceOrientations.Undefined);
         }
 
         public override void Dispose(bool disposing)
@@ -130,7 +140,9 @@ namespace Plugin.DeviceOrientation
         {
         }
 
+#pragma warning disable RECS0133 // Parameter name differs in base declaration
         public override void OnOrientationChanged(int rotationDegrees)
+#pragma warning restore RECS0133 // Parameter name differs in base declaration
         {
             var currentOrientation = CrossDeviceOrientation.Current.CurrentOrientation;
 
