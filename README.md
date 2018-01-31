@@ -9,7 +9,7 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 #### Setup
 
 * Available on NuGet: [![NuGet Badge](https://buildstats.info/nuget/Plugin.DeviceOrientation)](https://www.nuget.org/packages/Plugin.DeviceOrientation/)
-* Install into your PCL project and Platform Specific projects
+* Install into your PCL/NetStandard project and Platform Specific projects
 
 #### Platform Support
 
@@ -26,9 +26,6 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 * Windows Store RT
 
 Implementations for unsupported platforms contains [here](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/tree/deprecated/src/DeviceOrientation/).
-
-## News
-- Plugins have moved to .NET Standard and have some important changes!
 
 ## API Usage
 
@@ -132,4 +129,4 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 * [Yauheni Pakala](https://github.com/wcoder)
 
 ---
-&copy; 2017 MIT License
+&copy; 2018 MIT License
