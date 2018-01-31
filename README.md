@@ -123,6 +123,10 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 * [Android - Handling Rotation](https://developer.xamarin.com/guides/android/application_fundamentals/handling_rotation/)
 * [Xamarin.Forms - Device Orientation](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/device-orientation/)
 
+## Troubleshooting
+* [See in the issues](https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/issues?q=label%3Afaq)
+
+
 
 ## Contributors
 * [Yauheni Pakala](https://github.com/wcoder)
