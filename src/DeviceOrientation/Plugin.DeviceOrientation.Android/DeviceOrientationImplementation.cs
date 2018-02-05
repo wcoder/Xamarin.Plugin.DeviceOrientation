@@ -2,6 +2,7 @@ using System;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Hardware;
 using Android.Runtime;
 using Android.Views;
@@ -14,12 +15,37 @@ namespace Plugin.DeviceOrientation
     {
         private readonly OrientationListener _listener;
         private bool _disposed;
+        private bool _isListenerEnabled = true;
+        
+        protected bool IsListenerEnabled
+        {
+            set
+            {
+                if (_listener == null) return;
+
+                if (value == _isListenerEnabled) return;
+
+                if (value)
+                {
+                    _listener.Enable();
+                }
+                else
+                {
+                    _listener.Disable();
+                }
+
+                _isListenerEnabled = value;
+            }
+        }
 
         public DeviceOrientationImplementation()
         {
             _listener = new OrientationListener(OnOrientationChanged);
+
             if (_listener.CanDetectOrientation())
+            {
                 _listener.Enable();
+            }
         }
 
         public override DeviceOrientations CurrentOrientation
@@ -61,6 +87,21 @@ namespace Plugin.DeviceOrientation
             }
 
             base.Dispose(disposing);
+        }
+
+        public static void NotifyOrientationChange(Orientation newOrientation, bool isForms = true)
+        {
+            var instance = (DeviceOrientationImplementation)CrossDeviceOrientation.Current;
+
+            if (instance == null)
+                throw new InvalidCastException("Cast from IDeviceOrientation to Android.DeviceOrientationImplementation");
+
+            instance.IsListenerEnabled = !isForms;
+
+            instance.OnOrientationChanged(new OrientationChangedEventArgs
+            {
+                Orientation = CrossDeviceOrientation.Current.CurrentOrientation
+            });
         }
 
         private ScreenOrientation Convert(DeviceOrientations orientation)

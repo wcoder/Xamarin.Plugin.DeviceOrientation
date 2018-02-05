@@ -20,21 +20,18 @@ namespace DO.Samples.Forms.Droid
             // Step 1:
             CrossCurrentActivity.Current.Activity = this;
 
-            // Step 2:
-            DeviceOrientationImplementation.Init();
-
             // ...
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
 
-        // Step 3:
+        // Step 2:
         public override void OnConfigurationChanged(Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
 
-            DeviceOrientationImplementation.NotifyOrientationChange(newConfig);
+            DeviceOrientationImplementation.NotifyOrientationChange(newConfig.Orientation);
         }
     }
 }
