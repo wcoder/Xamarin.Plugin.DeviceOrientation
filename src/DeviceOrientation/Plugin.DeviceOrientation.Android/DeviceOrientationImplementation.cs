@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -14,22 +13,39 @@ namespace Plugin.DeviceOrientation
 {
     public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
     {
-        private const string FormsInvalidInitExceptionMessage = "This method only for Xamarin.Forms Android, for use this method firstly need to call Init method!";
-
         private readonly OrientationListener _listener;
         private bool _disposed;
+        private bool _isListenerEnabled = true;
         
-        private static DeviceOrientationImplementation Instance { get; set; }
+        protected bool IsListenerEnabled
+        {
+            set
+            {
+                if (_listener == null) return;
 
-        public static bool IsForms { get; private set; }
+                if (value == _isListenerEnabled) return;
+
+                if (value)
+                {
+                    _listener.Enable();
+                }
+                else
+                {
+                    _listener.Disable();
+                }
+
+                _isListenerEnabled = value;
+            }
+        }
 
         public DeviceOrientationImplementation()
         {
-            Instance = this;
-
             _listener = new OrientationListener(OnOrientationChanged);
+
             if (_listener.CanDetectOrientation())
+            {
                 _listener.Enable();
+            }
         }
 
         public override DeviceOrientations CurrentOrientation
@@ -73,24 +89,16 @@ namespace Plugin.DeviceOrientation
             base.Dispose(disposing);
         }
 
-        public static void Init(bool isForms = true)
+        public static void NotifyOrientationChange(Orientation newOrientation, bool isForms = true)
         {
-            IsForms = isForms;
+            var instance = (DeviceOrientationImplementation)CrossDeviceOrientation.Current;
 
-            //var activity = CrossCurrentActivity.Current.Activity;
-            //NotifyOrientationChange(activity.Resources.Configuration);
-        }
+            if (instance == null)
+                throw new InvalidCastException("Cast from IDeviceOrientation to Android.DeviceOrientationImplementation");
 
-        public static void NotifyOrientationChange(Configuration newConfig)
-        {
-            if (!IsForms)
-            {
-                throw new InvalidOperationException(FormsInvalidInitExceptionMessage);
-            }
+            instance.IsListenerEnabled = !isForms;
 
-            if (Instance == null) return;
-
-            Instance.OnOrientationChanged(new OrientationChangedEventArgs
+            instance.OnOrientationChanged(new OrientationChangedEventArgs
             {
                 Orientation = CrossDeviceOrientation.Current.CurrentOrientation
             });
@@ -165,8 +173,6 @@ namespace Plugin.DeviceOrientation
 
         public override void OnOrientationChanged(int rotationDegrees)
         {
-            if (DeviceOrientationImplementation.IsForms) return;
-
             var currentOrientation = CrossDeviceOrientation.Current.CurrentOrientation;
 
             if (currentOrientation != _cachedOrientation)
