@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Content.Res;
 using Android.Hardware;
 using Android.Runtime;
 using Android.Views;
@@ -12,11 +14,19 @@ namespace Plugin.DeviceOrientation
 {
     public class DeviceOrientationImplementation : BaseDeviceOrientationImplementation
     {
+        private const string FormsInvalidInitExceptionMessage = "This method only for Xamarin.Forms Android, for use this method firstly need to call Init method!";
+
         private readonly OrientationListener _listener;
         private bool _disposed;
+        
+        private static DeviceOrientationImplementation Instance { get; set; }
+
+        public static bool IsForms { get; private set; }
 
         public DeviceOrientationImplementation()
         {
+            Instance = this;
+
             _listener = new OrientationListener(OnOrientationChanged);
             if (_listener.CanDetectOrientation())
                 _listener.Enable();
@@ -61,6 +71,29 @@ namespace Plugin.DeviceOrientation
             }
 
             base.Dispose(disposing);
+        }
+
+        public static void Init(bool isForms = true)
+        {
+            IsForms = isForms;
+
+            //var activity = CrossCurrentActivity.Current.Activity;
+            //NotifyOrientationChange(activity.Resources.Configuration);
+        }
+
+        public static void NotifyOrientationChange(Configuration newConfig)
+        {
+            if (!IsForms)
+            {
+                throw new InvalidOperationException(FormsInvalidInitExceptionMessage);
+            }
+
+            if (Instance == null) return;
+
+            Instance.OnOrientationChanged(new OrientationChangedEventArgs
+            {
+                Orientation = CrossDeviceOrientation.Current.CurrentOrientation
+            });
         }
 
         private ScreenOrientation Convert(DeviceOrientations orientation)
@@ -132,6 +165,8 @@ namespace Plugin.DeviceOrientation
 
         public override void OnOrientationChanged(int rotationDegrees)
         {
+            if (DeviceOrientationImplementation.IsForms) return;
+
             var currentOrientation = CrossDeviceOrientation.Current.CurrentOrientation;
 
             if (currentOrientation != _cachedOrientation)
