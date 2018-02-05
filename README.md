@@ -128,6 +128,7 @@ public override void OnConfigurationChanged(Configuration newConfig)
     DeviceOrientationImplementation.NotifyOrientationChange(newConfig.Orientation);
 }
 ```
+**Note:** This solution has only two state **Portrait** and **Landscape**.
 
 ## Additional information
 * [Android - Handling Rotation](https://developer.xamarin.com/guides/android/application_fundamentals/handling_rotation/)
