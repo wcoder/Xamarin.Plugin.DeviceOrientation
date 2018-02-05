@@ -116,6 +116,19 @@ public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplicatio
 ```
 **Note:** In this case, to lock/unlock orientation on the one screen, you must use the `LockOrientation`/`UnlockOrientation` methods.
 
+#### Xamarin.Forms Android
+
+In your `MainActivity.cs`, add overriding for changing orientation as here:
+
+```csharp
+public override void OnConfigurationChanged(Configuration newConfig)
+{
+    base.OnConfigurationChanged(newConfig);
+
+    DeviceOrientationImplementation.NotifyOrientationChange(newConfig.Orientation);
+}
+```
+
 ## Additional information
 * [Android - Handling Rotation](https://developer.xamarin.com/guides/android/application_fundamentals/handling_rotation/)
 * [Xamarin.Forms - Device Orientation](https://developer.xamarin.com/guides/xamarin-forms/user-interface/layouts/device-orientation/)
