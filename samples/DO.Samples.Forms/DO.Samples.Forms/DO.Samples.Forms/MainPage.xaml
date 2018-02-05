@@ -4,8 +4,10 @@
              xmlns:local="clr-namespace:DO.Samples.Forms"
              x:Class="DO.Samples.Forms.MainPage">
 
-	<Label Text="Welcome to Xamarin.Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <Button x:Name="btn"
+            Text="---------" 
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            Clicked="Button_Click" />
 
 </ContentPage>
