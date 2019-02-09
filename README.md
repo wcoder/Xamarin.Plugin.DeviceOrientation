@@ -15,9 +15,11 @@ Simple cross-platform plugin to work with screen orientation of mobile device.
 
 |Platform|Version|
 | ------------------- | :------------------: |
-|Xamarin.iOS|iOS 6+|
-|Xamarin.Android|API 14+|
-|Windows 10 UWP|10.0.10240+|
+|Xamarin.iOS|iOS 10+|
+|Xamarin.Android|API 19+|
+|Windows 10 UWP|10.0.16299+|
+
+v2.0 updated to NetStandard 2.0
 
 #### Deprecated platforms
 
@@ -143,4 +145,4 @@ public override void OnConfigurationChanged(Configuration newConfig)
 * [Yauheni Pakala](https://github.com/wcoder)
 
 ---
-&copy; 2018 MIT License
+&copy; 2016-2019 MIT License
