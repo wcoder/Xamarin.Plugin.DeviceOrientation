@@ -2,16 +2,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Plugin.DeviceOrientation.Abstractions</RootNamespace>
     <AssemblyName>Plugin.DeviceOrientation.Abstractions</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.0\Plugin.DeviceOrientation.Abstractions.xml</DocumentationFile>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
 </Project>

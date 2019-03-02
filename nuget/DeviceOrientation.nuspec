@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata minClientVersion="2.8.1">
     <id>Plugin.DeviceOrientation</id>
-    <version>1.0.7</version>
+    <version>2.0.0-beta</version>
     <title>Device Orientation Plugin for Xamarin and Windows</title>
     <authors>Yauheni Pakala</authors>
     <owners>Yauheni Pakala</owners>
@@ -13,23 +13,19 @@
     <description>
      Simple cross-platform plugin to work with screen orientation of mobile device.
     </description>
-    <releaseNotes>
-    </releaseNotes>
+    <releaseNotes>See: https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation/releases</releaseNotes>
     <summary>Simple cross-platform plugin to work with screen orientation of mobile device.</summary>
-    <tags>xamarin, pcl, xam.pcl, orientation, .netstandart, uwp, android, xamarin.forms, ios, orientation lock, device orientation</tags>
+    <tags>xamarin, orientation, .netstandart, uwp, android, xamarin.forms, ios, orientation lock, device orientation</tags>
     <dependencies>
-      <group targetFramework="netstandard1.0">
-        <dependency id="NETStandard.Library" version="1.6.1" />
-      </group>
       <group targetFramework="MonoAndroid10">
-        <dependency id="Plugin.CurrentActivity" version="1.0.1"/>
+        <dependency id="Plugin.CurrentActivity" version="2.1.0.4"/>
       </group>
     </dependencies>
   </metadata>
   <files>
 
      <!--Core-->
-     <file src="..\src\DeviceOrientation\Plugin.DeviceOrientation\bin\Release\netstandard1.0\Plugin.DeviceOrientation.*" target="lib\netstandard1.0" />
+     <file src="..\src\DeviceOrientation\Plugin.DeviceOrientation\bin\Release\netstandard2.0\Plugin.DeviceOrientation.*" target="lib\netstandard2.0" />
 
      <!--Xamarin.Android-->
      <file src="..\src\DeviceOrientation\Plugin.DeviceOrientation.Android\bin\Release\Plugin.DeviceOrientation.*" target="lib\MonoAndroid10" />
